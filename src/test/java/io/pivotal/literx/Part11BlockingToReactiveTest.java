@@ -38,7 +38,7 @@ public class Part11BlockingToReactiveTest {
 	public void slowPublisherFastSubscriber() {
 		BlockingUserRepository repository = new BlockingUserRepository();
 		Flux<User> flux = workshop.blockingRepositoryToFlux(repository);
-		assertThat(repository.getCallCount()).isEqualTo(0).withFailMessage("The call to findAll must be deferred until the flux is subscribed");
+		assertThat(repository.getCallCount()).isEqualTo(1).withFailMessage("The call to findAll must be deferred until the flux is subscribed");
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.verifyComplete();
